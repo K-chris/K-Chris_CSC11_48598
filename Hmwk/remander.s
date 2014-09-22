@@ -16,6 +16,6 @@ case_subtr:
 	B end			     @Branch to end of program
 	
 end:
-	MOV R0, R1			@Moves row 1 to row 0 for output of answer
+	MOV R0, R2			@Moves row 1 to row 0 for output of answer
 	MOV R7, #1
 	SWI 0
