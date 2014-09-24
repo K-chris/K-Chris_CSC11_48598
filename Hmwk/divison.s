@@ -1,9 +1,10 @@
 
 .text
-global MAIN
+.global main
+main:
 	MOV R0, #0         @ set counter to zero
-	MOV R1, R2         @ R1=A
 	MOV R2, #11        @ A=111
+        MOV R1, R2         @ R1=A
 	MOV R3, #5         @ B=
 	MOV R4, #0	       @ Swap if value =1
 	CMP R1, R3         @ compares the values of A and B
