@@ -1,21 +1,26 @@
-	.global _start
-	
-_start:
-	MOV R0, #0         @ set the output to zero 
-	MOV R1, #0         @ set counter to zero 
-	MOV R2, #111       @ A=111 
-	MOV R3, #5         @ B=5   
-	CMP R2, R3         @ compares the values of A and B
+.text
+.global main
+main:
+	MOV R0, #0         @ set counter to zero
+	MOV R2, #11        @ A=111
+        MOV R1, R2         @ R1=A
+	MOV R3, #5         @ B=
+	MOV R4, #1	       @ Swap if value =1
+	CMP R1, R3         @ compares the values of A and B
 	BGE case_subtr     @ Branch if A and B are greater or equal
-
+	B end
 case_subtr:
-	SUB R2, R2, R3       @ R2=R2-R3
-	ADD R1, R1, #1       @ counter += 1
-	CMP R2, R3           @ compares the values of A and B once again
+	SUB R1, R1, R3       @ R2=R2-R3
+	ADD R0, R0, #1       @ counter += 1
+	CMP R1, R3           @ compares the values of A and B once again
 	BGE case_subtr       @ Loop
-	B end			     @Branch to end of program
-	
+    CMP R4, #0           @compare for switch, switch if =1
+    BEQ end              @Branch to end of program
+	B case_swi
+case_swi:
+    MOV R0, R5
+    MOV R1, R0
+    Mov R5, R1
+
 end:
-	MOV R0, R2			@Moves row 1 to row 0 for output of answer
-	MOV R7, #1
-	SWI 0
+	bx lr
