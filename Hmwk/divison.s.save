@@ -1,11 +1,11 @@
-
-.text
-global MAIN
+	.global _start
+	
+_start:
 	MOV R0, #0         @ set the output to zero
 	MOV R1, #0         @ set counter to zero
-	MOV R2, #11         @ A=111
-	MOV R3, #5         @ B=
-	MOV R4, #0	   @ Swap if value =1
+	MOV R2, #1       @ A=111
+	MOV R3, #5
+         @ B=
 	CMP R2, R3         @ compares the values of A and B
 	BGE case_subtr     @ Branch if A and B are greater or equal
 	B end
@@ -15,7 +15,8 @@ case_subtr:
 	CMP R2, R3           @ compares the values of A and B once again
 	BGE case_subtr       @ Loop
 	B end			     @Branch to end of program
-
+	
 end:
 	MOV R0, R1	      @Moves row 1 to row 0 for output of answer
-	bx lr
+	MOV R7, #1
+	SWI 0
