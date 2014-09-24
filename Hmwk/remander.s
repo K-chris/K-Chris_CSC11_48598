@@ -18,9 +18,9 @@ case_subtr:
     BEQ end              @Branch to end of program
 	B case_swi
 case_swi:
-    MOV R0, R5
-    MOV R1, R0
-    Mov R5, R1
+    MOV R5, R0
+    MOV R0, R1
+    MOV R1, R5
 
 end:
 	bx lr
