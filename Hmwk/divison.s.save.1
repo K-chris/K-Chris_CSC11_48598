@@ -1,3 +1,4 @@
+
 .text
 .global main
 main:
@@ -5,7 +6,7 @@ main:
 	MOV R2, #11        @ A=111
         MOV R1, R2         @ R1=A
 	MOV R3, #5         @ B=
-	MOV R4, #1	       @ Swap if value =1
+	MOV R4, #0	       @ Swap if value =1
 	CMP R1, R3         @ compares the values of A and B
 	BGE case_subtr     @ Branch if A and B are greater or equal
 	B end
@@ -18,15 +19,7 @@ case_subtr:
     BEQ end              @Branch to end of program
 	B case_swi
 case_swi:
-    MOV R5, R0
-    MOV R0, R1
-    MOV R1, R5
+
 
 end:
-<<<<<<< HEAD
-	MOV R0, R2			@Moves row 2 to row 0 for output of answer
-	MOV R7, #1
-	SWI 0
-=======
-	bx lr
->>>>>>> origin/master
+	bx
