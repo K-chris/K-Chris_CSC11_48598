@@ -1,3 +1,4 @@
+
 	.global _start
 
 _start:
@@ -20,4 +21,4 @@ _exit:
 
 .data
 string:
-.ascii "Hello World String\n"
+.ascii " Hello World String\n"
