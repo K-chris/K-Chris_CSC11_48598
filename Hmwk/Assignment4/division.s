@@ -20,6 +20,7 @@ return2 : .word 0
 
 .text
 division:
+    push {lr}
 	ldr r1, address_of_return2
 	str lr, [r1]
 
@@ -30,18 +31,27 @@ division:
 divMod:
         cmp r1, r3
         beq case_equal
-        bmi end @end it if r1<r3
+        bmi end
+        pop {lr}
+        bx lr          @end it if r1<r3
 scaleLeft:
+    push {lr}
         mov r4, r4, lsl#1       @div counter
         mov r5, r5, lsl#1       @Remainder sub
         cmp r1, r5
         bge scaleLeft
 	mov r4, r4, lsr#1
 	mov r5, r5, lsr#1
+    pop {lr}
+    bx lr
 addSub:
+        push {lr}
         add r0, r0, r4
         sub r1, r1, r5
+        pop {lr}
+        bx lr
 scaleRight:
+        push {lr}
         mov r4, r4, lsr#1
         mov r5, r5, lsr#1
         cmp r1, r5
@@ -53,28 +63,28 @@ end:
 	ldr lr, [lr]
 	bx lr
 address_of_return2 : .word return2
+    pop {lr}
+    bx lr
 case_equal:
         mov r0, #1
         b end
 
 .global main
 main:
+    push {lr}
 	ldr r1, address_of_return
 	str lr, [r1]
-
 	ldr r0, address_of_message_1
 	bl printf
-
 	ldr r0, address_of_scan_pattern
 	ldr r1, address_of_number_num
 	bl scanf
-
 	ldr r0, address_of_message_2
 	bl printf
-
 	ldr r0, address_of_scan_pattern
 	ldr r1, address_of_number_den
 	bl scanf
+
 
 	ldr r0, address_of_number_num
 	ldr r2, [r0]
@@ -90,14 +100,14 @@ main:
 	ldr r2, [r2]
 	ldr r0, address_of_message_3
 	bl printf
-
 	mov r1, r6
 	ldr r0, address_of_message_4
 	bl printf
-
-	ldr lr, address_of_return
+    ldr lr, address_of_return
 	ldr lr, [lr]
 	bx lr
+    pop {lr}
+    bx lr
 address_of_message_1 : .word message_1
 address_of_message_2 : .word message_2
 address_of_message_3 : .word message_3
