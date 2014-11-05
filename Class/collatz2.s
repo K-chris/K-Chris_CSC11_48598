@@ -7,9 +7,12 @@ message2: .asciz "Length of the Hailstone sequence for %d is %d\n"
 .text
  
 collatz2:
+top_collaz:
+
     /* r0 contains the first argument */
     push {r4}
     sub sp, sp, #4  /* Make sure the stack is 8 byte aligned */
+    mov r5, #0
     mov r4, r0
     mov r3, #4194304
   collatz_repeat:
@@ -30,6 +33,9 @@ collatz2:
     sub r3, r3, #1
     cmp r3, #0
     bne collatz_repeat
+    add r5, r5, #1
+    cmp r5, #4
+    blt top_collaz
     add sp, sp, #4             /* Restore the stack */
     pop {r4}
     bx lr
